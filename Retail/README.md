@@ -4,7 +4,7 @@ An interactive sales dashboard built with **Streamlit** and **Plotly**, explorin
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP-NAME.streamlit.app)
 
-**Live app:** https://YOUR-APP-NAME.streamlit.app
+**Live app:** https://retailsales-jeckdbmnqcunvjwwycgbvy.streamlit.app/
 
 ![Retail Pulse dashboard](screenshot.png)
 
