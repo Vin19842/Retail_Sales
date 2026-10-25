@@ -128,8 +128,9 @@ st.markdown(css, unsafe_allow_html=True)
 
 @st.cache_data(show_spinner="Loading retail data…")
 def load_data():
-    parquet_path = Path("retail_clean.parquet")
-    csv_path = Path("retail_clean.csv")
+    base_dir = Path(__file__).resolve().parent
+    parquet_path = base_dir / "retail_clean.parquet"
+    csv_path = base_dir / "retail_clean.csv"
 
     if parquet_path.exists():
         data = pd.read_parquet(parquet_path)
