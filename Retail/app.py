@@ -128,14 +128,18 @@ st.markdown(css, unsafe_allow_html=True)
 
 @st.cache_data(show_spinner="Loading retail data…")
 def load_data():
-    file_path = Path("retail_clean.csv")
-    if not file_path.exists():
-        raise FileNotFoundError("Place retail_clean.csv in the same folder as app.py.")
+    parquet_path = Path("retail_clean.parquet")
+    csv_path = Path("retail_clean.csv")
 
-    data = pd.read_csv(file_path, parse_dates=["InvoiceDate"])
-    for c in ["Country", "StockCode", "Description", "Invoice"]:
-        data[c] = data[c].astype("category")
-    data.to_parquet("retail_clean.parquet", index=False)
+    if parquet_path.exists():
+        data = pd.read_parquet(parquet_path)
+    elif csv_path.exists():
+        data = pd.read_csv(csv_path, parse_dates=["InvoiceDate"])
+    else:
+        raise FileNotFoundError(
+            "Place retail_clean.parquet (or retail_clean.csv) in the same folder as app.py."
+        )
+
     data["InvoiceDate"] = pd.to_datetime(data["InvoiceDate"], errors="coerce")
     data["Quantity"] = pd.to_numeric(data["Quantity"], errors="coerce")
     data["LineTotal"] = pd.to_numeric(data["LineTotal"], errors="coerce")
